@@ -1,0 +1,158 @@
+<div class="container-fluid">
+
+  <h4>Profile Detail</h4>
+
+  <div class="form" *ngIf="profile">
+
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="profile-id">Id:</label>
+        <input readonly type="number" class="form-control" id="profile-id" name="profile-id" placeholder="new"
+               [(ngModel)]="profile.id">
+      </div>
+
+      <div class="form-group col-md-3">
+        <label for="profile-birthday">Birthday:</label>
+        <input type="date" class="form-control" id="profile-birthday" name="profile-birthday" placeholder="birthday"
+               [(ngModel)]="profile.birthday">
+      </div>
+
+      <div class="form-group col-md-3">
+        <label for="profile-height">Height:</label>
+        <input type="number" class="form-control" id="profile-height" name="profile-height" placeholder="height"
+               [(ngModel)]="profile.height">
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label for="profile-display-name">Display Name:</label>
+      <input type="text" class="form-control" id="profile-display-name" name="profile-display-name"
+             placeholder="display name" [(ngModel)]="profile.displayName">
+    </div>
+
+    <div class="form-group">
+      <label for="profile-real-name">Real Name:</label>
+      <input type="text" class="form-control" id="profile-real-name" name="profile-real-name" placeholder="real name"
+             [(ngModel)]="profile.realName">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="profile-gender">Gender:</label>
+        <select class="custom-select form-control" id="profile-gender" name="profile-gender" placeholder="gender"
+                [(ngModel)]="profile.gender">
+          <option *ngFor="let gender of choiceService.genders" value="{{gender.id}}">{{gender.name}}</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="profile-ethnicity">Ethnicity:</label>
+        <select class="custom-select form-control" id="profile-ethnicity" name="profile-ethnicity"
+                placeholder="ethnicity"
+                [(ngModel)]="profile.ethnicity">
+          <option *ngFor="let ethnicity of choiceService.ethnicities" value="{{ethnicity.id}}">{{ethnicity.name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="profile-religion">Religion:</label>
+        <select class="custom-select form-control" id="profile-religion" name="profile-religion" placeholder="religion"
+                [(ngModel)]="profile.religion">
+          <option *ngFor="let religion of choiceService.religions" value="{{religion.id}}">{{religion.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="profile-figure">Figure:</label>
+        <select class="custom-select form-control" id="profile-figure" name="profile-figure" placeholder="figure"
+                [(ngModel)]="profile.figure">
+          <option *ngFor="let figure of choiceService.figures" value="{{figure.id}}">{{figure.name}}</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="profile-marital-status">Marital Status:</label>
+        <select class="custom-select form-control" id="profile-marital-status" name="profile-marital-status"
+                placeholder="marital status"
+                [(ngModel)]="profile.maritalStatus">
+          <option *ngFor="let maritalStatus of choiceService.status" value="{{maritalStatus.id}}">
+            {{maritalStatus.name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="profile-location">Location:</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="profile-location" name="profile-location" placeholder="location"
+                 [(ngModel)]="profile.location.city" readonly>
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#selectCity">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="profile-occupation">Occupation:</label>
+      <input type="text" class="form-control" id="profile-occupation" name="profile-occupation" placeholder="occupation"
+             [(ngModel)]="profile.occupation">
+    </div>
+
+    <div class="form-group">
+      <label for="profile-about-me">About Me:</label>
+      <textarea class="form-control" rows="3" id="profile-about-me" name="profile-about-me" placeholder="about me"
+                [(ngModel)]="profile.aboutMe"></textarea>
+    </div>
+
+
+    <div class="form-row">
+      <div class="form-group col-md-1">
+        <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+      </div>
+      <div class="form-group col-md-1">
+        <button type="button" class="btn btn-secondary" (click)="back()">Back</button>
+      </div>
+      <div class="form-group col-md-1">
+        <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="selectCity" tabindex="-1" role="dialog" aria-labelledby="selectCityLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="selectCityLabel">Select a City</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <input #cityText type="text" class="form-control" placeholder="select city" (click)="loadCities(cityText.value)">
+        </div>
+      </div>
+      <div class="list-group">
+        <a class="list-group-item d-flex justify-content-between align-items-center"
+           *ngFor="let city of cities"
+           data-dismiss="modal" (click)="setCity(city)">
+          {{city.city}}
+        </a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

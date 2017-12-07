@@ -1,0 +1,9 @@
+<div class="container-fluid">
+  <h4>Messages</h4>
+  <button type="button" class="btn btn-primary btn-sm" (click)="messageService.clear()">clear</button>
+  <div class="list-group">
+    <div class="list-group-item d-flex justify-content-between align-items-center" *ngFor='let message of messageService.messages'>
+      {{message}}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="container-fluid">
+
+  <h4>Profiles</h4>
+
+  <div class="list-group">
+    <a class="list-group-item d-flex justify-content-between align-items-center" routerLink="/profile/new">
+      New Profile
+    </a>
+    <a class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let profile of profiles"
+       routerLink="/profile/{{profile.id}}">
+      {{profile.displayName}}
+      <span class="badge badge-primary badge-pill">{{profile.id}}</span>
+    </a>
+  </div>
+</div>
