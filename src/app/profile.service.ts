@@ -16,7 +16,7 @@ const httpOptions = {
 @Injectable()
 export class ProfileService {
 
-  private baseUrl = 'http://192.168.1.3:8080/profiles';
+  private baseUrl = 'http://localhost:8080/profiles';
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
